@@ -22,7 +22,7 @@ def general_chat_view(request):
 def waiting_time(request, token_id):
     token = get_object_or_404(Queue, id=token_id)
     position = token.position
-    avg_time = 10  # minutes per person (simple heuristic)
+    avg_time = 15  # minutes per person (simple heuristic)
     waiting_minutes = position * avg_time
     response = f"Your estimated waiting time is {waiting_minutes} minutes."
     return JsonResponse({'response': response})

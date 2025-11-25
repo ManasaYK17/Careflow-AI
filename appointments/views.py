@@ -22,3 +22,16 @@ def book_appointment(request, hospital_id):
         else:
             messages.error(request, 'Invalid request.')
     return render(request, 'appointments/book.html', {'doctors': doctors})
+
+@login_required
+def admin_appointment_list(request):
+    # Display all appointments for the admin's hospital(s)
+    if not (request.user.is_superuser or (hasattr(request.user, 'staff') and request.user.staff)):
+        messages.error(request, 'You do not have permission to view this page.')
+        return redirect('hospitals:hospital_list')
+
+    # Assuming hospital staff user has field staff=True and associated hospitals if needed
+    # For simplicity, let's fetch all appointments in all hospitals if superuser or staff
+    appointments = Appointment.objects.select_related('user', 'doctor', 'doctor__hospital').order_by('date', 'time')
+
+    return render(request, 'appointments/admin_appointment_list.html', {'appointments': appointments})
