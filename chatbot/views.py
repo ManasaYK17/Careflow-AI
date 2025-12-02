@@ -46,13 +46,7 @@ def queue_status(request, token_id):
     response = f"Your current queue position is {token.position}."
     return JsonResponse({'response': response})
 
-<<<<<<< HEAD
-@csrf_exempt
-@require_POST
-def chat_message(request, token_id=None):
-    message = request.POST.get('message', '').strip()
 
-=======
 
 import logging
 
@@ -63,69 +57,12 @@ logger = logging.getLogger(__name__)
 def chat_message(request, token_id=None):
     message = request.POST.get('message', '')
     hospital_id = request.POST.get('hospital_id') or request.GET.get('hospital_id')
->>>>>>> b73893c741ba2eacf891890fb9034369e7c8cf1c
+
     if not message:
         return JsonResponse({'response': 'Please enter a message.'})
     # Normalize message for simple keyword intent matching
     text = message.lower()
 
-<<<<<<< HEAD
-    # Fetch hospital context
-    hospital_data = ""
-    try:
-        token = Queue.objects.select_related('hospital', 'doctor').get(id=token_id)
-
-        hospital = token.hospital
-        doctor = token.doctor
-
-        hospital_data = f"""
-You are an AI assistant for the hospital: {hospital.name}.
-
-Hospital Details:
-- Name: {hospital.name}
-- Address: {hospital.address if hasattr(hospital, 'address') else 'Not available'}
-
-Doctor Assigned:
-- Doctor Name: {doctor.name if doctor else 'Not assigned'}
-- Specialization: {doctor.specialization if doctor else 'N/A'}
-
-Queue Status:
-- Position: {token.position}
-"""
-
-    except:
-        hospital_data = "Hospital details not found."
-
-    system_rules = """
-SYSTEM RULES:
-- You are an AI assistant for a hospital management system.
-- Answer questions based only on the provided hospital data and system context.
-- Do not provide medical advice, diagnoses, or treatment recommendations.
-- Focus on hospital services such as appointments, queue status, bed availability, and general hospital information.
-- Maintain patient privacy and do not disclose sensitive information.
-- If the question is outside the scope of hospital services or requires professional medical help, politely redirect the user to consult hospital staff or appropriate services.
-- Keep responses clear, concise, and helpful.
-- If information is not available in the provided data, state that you do not have that information.
-"""
-
-    final_prompt = f"""
-{system_rules}
-HOSPITAL INFO:
-{hospital_data}
-
-USER QUESTION:
-{message}
-
-Your response:
-"""
-
-    try:
-        model = genai.GenerativeModel("gemini-2.5-flash")
-        response = model.generate_content(final_prompt)
-        reply = response.text or "I could not generate a response."
-    except Exception as e:
-        reply = f"Error: {str(e)}"
-=======
     # If a TensorFlow intent model exists and a prediction is confident,
     # use it to route to the proper system handler. Threshold is conservative.
     predicted_intent = None
@@ -339,6 +276,6 @@ Your response:
     except Exception as e:
         logger.error(f"Error generating response with Gemini: {str(e)}")
         reply = f'Error: {str(e)}'
->>>>>>> b73893c741ba2eacf891890fb9034369e7c8cf1c
+
 
     return JsonResponse({'response': reply})
