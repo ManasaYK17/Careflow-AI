@@ -19,7 +19,7 @@ except Exception:
     INTENT_MODEL_AVAILABLE = False
 
 # Configure Gemini API
-genai.configure(api_key='AIzaSyATwaNkpl9jECLM6GE1w8U7ncw4bRW_ksw') # Replace with actual key or set in env
+genai.configure(api_key='') # Replace with actual key or set in env
 
 
 def chatbot_view(request, token_id):
