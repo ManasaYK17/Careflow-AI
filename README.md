@@ -7,7 +7,7 @@
 
 ## 📝 Features
 
-✔ Track and manage hospital queues and patient statuses  
+✔ Track and manage hospital queues and patient status
 ✔ Real-time bed availability dashboard  
 ✔ Chatbot module for patient assistance
 ✔ Modular structure ready for  AI enhancements  
