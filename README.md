@@ -26,6 +26,10 @@
 
 ---
 
+## 🎥 Project Demo
+
+[▶ Watch Demo Video](./WhatsApp Video 2025-12-15 at 16.57.22.
+
 ## 🚀 (Local Setup)
 
 > Before running, make sure you have **Python 3.8+** installed.
@@ -35,7 +39,4 @@
    git clone https://github.com/ManasaYK17/Careflow-AI.git
    cd Careflow-AI
 
-## 🎥 Project Demo
-
-[▶ Watch Demo Video](./demo.mp4)
 
